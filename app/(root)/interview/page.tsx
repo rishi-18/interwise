@@ -1,14 +1,16 @@
-import React from 'react'
-import Agent from '@/components/Agents'
-import { redirect } from 'next/navigation'
+// import Agent from "@/components/Agent";
+import {getCurrentUser} from "@/lib/actions/auth.action";
+import Agents from "@/components/Agents";
 
-const page = () => {
-  return (
-    <>
-         <h3>Interview Generation</h3>
-         <Agent userName="You" userId="user1" type="generate"/>
-    </>
-  )
+const Page = async () => {
+    const user = await getCurrentUser();
+
+    return (
+        <>
+            <h3>Interview Generation</h3>
+
+            <Agents userName={user?.name ?? "Guest"} userId={user?.id ?? ""} type="generate" />
+        </>
+    )
 }
-
-export default page
+export default Page
